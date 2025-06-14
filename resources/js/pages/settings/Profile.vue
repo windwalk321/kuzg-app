@@ -7,7 +7,7 @@ import InputError from '@/components/InputError.vue';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import AppLayout from '@/layouts/AppLayout.vue';
+import AppLayout from '@/layouts/AppMainLayout.vue';
 import SettingsLayout from '@/layouts/settings/Layout.vue';
 import { type BreadcrumbItem, type SharedData, type User } from '@/types';
 
@@ -70,7 +70,7 @@ const submit = () => {
                     </div>
 
                     <div v-if="mustVerifyEmail && !user.email_verified_at">
-                        <p class="-mt-4 text-sm text-muted-foreground">
+                        <p class="text-muted-foreground -mt-4 text-sm">
                             Your email address is unverified.
                             <Link
                                 :href="route('verification.send')"

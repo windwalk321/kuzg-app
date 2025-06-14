@@ -11,7 +11,7 @@ defineProps<{
 <template>
     <div class="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
         <div class="flex w-full max-w-md flex-col gap-6">
-            <Link :href="route('home')" class="flex items-center gap-2 self-center font-medium">
+            <Link :href="route('products.index')" class="flex items-center gap-2 self-center font-medium">
                 <div class="flex h-9 w-9 items-center justify-center">
                     <h1>Yarmarok</h1>
                 </div>

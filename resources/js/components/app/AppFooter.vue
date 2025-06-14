@@ -1,43 +1,24 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { Button } from '@/components/ui/button';
+import { Link } from '@inertiajs/vue3';
+</script>
 
 <template>
-    <footer class="mt-8 flex w-full justify-center bg-black py-8">
-        <div class="container flex w-7xl">
-            <div class="flex flex-col">
-                <h6 class="text-lg text-white">About us</h6>
-                <ul class="text-sm text-gray-400">
-                    <li>About Yarmarok</li>
-                    <li>Contact us</li>
-                    <li>Careers</li>
-                    <li>Press</li>
-                    <li>Company details - Imprint</li>
-                    <li>Yarmarok's Tree Planting Program</li>
-                </ul>
-            </div>
-            <div class="ml-20 flex flex-col">
-                <h6 class="text-lg text-white">Customer service</h6>
-                <ul class="text-sm text-gray-400">
-                    <li>Return and refund policyA</li>
-                    <li>Intellectual property policy</li>
-                    <li>Shipping info</li>
-                    <li>Product safety alerts</li>
-                    <li>Report suspicious activity</li>
-                    <li>Minimum Order Value</li>
-                </ul>
-            </div>
-            <div class="ml-20 flex flex-col">
-                <h6 class="text-lg text-white">Help</h6>
-                <ul class="text-sm text-gray-400">
-                    <li>Support center & FAQ</li>
-                    <li>Safety center</li>
-                    <li>Temu purchase protection</li>
-                    <li>Sitemap</li>
-                    <li>Partner with Temu</li>
-                    <li>Digital Services Act</li>
-                </ul>
-            </div>
-            <div class="ml-auto flex items-end">
-                <p class="text-lg text-white">Copyright &copy; 2025 Yarmarok. All rights reserved.</p>
+    <footer class="bg-background border-t py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col items-center justify-between md:flex-row">
+                <p class="text-muted-foreground mb-4 text-sm md:mb-0">&copy; {{ new Date().getFullYear() }} Yarmarok. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <Button variant="link" size="sm" as-child>
+                        <Link href="/">Terms</Link>
+                    </Button>
+                    <Button variant="link" size="sm" as-child>
+                        <Link href="/">Privacy</Link>
+                    </Button>
+                    <Button variant="link" size="sm" as-child>
+                        <Link href="/">Contact</Link>
+                    </Button>
+                </div>
             </div>
         </div>
     </footer>

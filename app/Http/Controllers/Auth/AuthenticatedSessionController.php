@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Inertia\Response;
+use App\Models\Cart;
+use App\Models\Product;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -31,9 +33,13 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
+        $guestCart = session()->get('cart', ['items' => []]);
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        session()->regenerate();
+        
+        $this->mergeCarts($guestCart);
+
+        return redirect()->intended(route('products.index', absolute: false));
     }
 
     /**
@@ -46,6 +52,41 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
+        
+
         return redirect('/');
+    }
+
+    protected function mergeCarts(array $guestCart)
+    {
+        if (empty($guestCart['items'])) return;
+
+        $user = auth()->user();
+        $userCart = $user->cart()->firstOrCreate();
+
+        foreach ($guestCart['items'] as $item) {
+            $product = Product::find($item['product_id']);
+            if (!$product) continue;
+
+            $existingItem = $userCart->items()
+                ->where('product_id', $item['product_id'])
+                ->first();
+
+            if ($existingItem) {
+                $newQuantity = min(
+                    $product->stock,
+                    $existingItem->quantity + $item['quantity']
+                );
+                $existingItem->update(['quantity' => $newQuantity]);
+            } else {
+                $userCart->items()->create([
+                    'product_id' => $item['product_id'],
+                    'quantity' => min($item['quantity'], $product->stock)
+                ]);
+            }
+        }
+
+        session()->forget('cart');
+        $user->load('cart.items'); // Ensure the cart is reloaded
     }
 }

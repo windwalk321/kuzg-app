@@ -18,9 +18,11 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -33,6 +35,8 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    protected $with = ['cart.items'];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -44,5 +48,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function isAdmin(): bool
+    {   
+        return $this->role === 'admin'; 
+    }
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

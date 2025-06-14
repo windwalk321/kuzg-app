@@ -12,8 +12,8 @@ defineProps<{
         <div class="w-full max-w-sm">
             <div class="flex flex-col gap-8">
                 <div class="flex flex-col items-center gap-4">
-                    <Link :href="route('home')" class="flex flex-col items-center gap-2 font-medium">
-                        <h1 class="text-3xl font-black">- Yarmarok -</h1>
+                    <Link :href="route('products.index')" class="flex flex-col items-center gap-2 font-medium">
+                        <h1 class="text-3xl font-black">Yarmarok</h1>
                         <span class="sr-only">{{ title }}</span>
                     </Link>
                     <div class="space-y-2 text-center">
